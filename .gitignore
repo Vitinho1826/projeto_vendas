@@ -4,3 +4,7 @@
 
 /ConsoleAppVenda/.vs
 /ConsoleAppVenda/APIWeb/obj
+
+obj
+bin
+.vs

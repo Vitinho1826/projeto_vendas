@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="APIWeb/APIWeb.csproj" Id="240e75c5-5ad9-4cb6-9dff-823975a0fda7" />
+  <Project Path="ConsoleAppVenda/ConsoleAppVenda.csproj" />
+</Solution>

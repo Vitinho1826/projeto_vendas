@@ -1,19 +1,18 @@
-﻿using Npgsql;
+﻿using Microsoft.Data.SqlClient;
 
 namespace VendinhaPlena.Database;
 
 public class DatabaseConfig
 {
     private string connectionString =
-        "Host=localhost;" +
-        "Port=5432;" +
-        "Database=vendinha;" +
-        "Username=postgres;" +
-        "Password=123456";
+        "Server=(localdb)\\MSSQLLocalDB;" +
+        "Database=Vendinha;" +
+        "Trusted_Connection=True;" +
+        "TrustServerCertificate=True";
 
-    public NpgsqlConnection GetConnection()
+    public SqlConnection GetConnection()
     {
-        return new NpgsqlConnection(connectionString);
+        return new SqlConnection(connectionString);
     }
 
     public void InicializarBanco()
@@ -26,32 +25,33 @@ public class DatabaseConfig
 
         command.CommandText =
         @"
-        CREATE TABLE IF NOT EXISTS clientes
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='clientes' AND xtype='U')
+        CREATE TABLE clientes
         (
-            id SERIAL PRIMARY KEY,
+            id INT IDENTITY(1,1) PRIMARY KEY,
             nome_completo VARCHAR(100) NOT NULL,
             cpf VARCHAR(11) UNIQUE NOT NULL,
             data_nascimento DATE NOT NULL,
             email VARCHAR(100)
         );
 
-        CREATE TABLE IF NOT EXISTS dividas
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='dividas' AND xtype='U')
+        CREATE TABLE dividas
         (
-            id SERIAL PRIMARY KEY,
+            id INT IDENTITY(1,1) PRIMARY KEY,
 
-            cliente_id INTEGER NOT NULL,
+            cliente_id INT NOT NULL,
 
-            valor NUMERIC(10,2) NOT NULL,
+            valor DECIMAL(10,2) NOT NULL,
 
-            situacao INTEGER NOT NULL,
+            situacao INT NOT NULL,
 
-            data_criacao TIMESTAMP NOT NULL,
+            data_criacao DATETIME NOT NULL,
 
-            data_pagamento TIMESTAMP,
+            data_pagamento DATETIME NULL,
 
-            CONSTRAINT fk_cliente
-                FOREIGN KEY(cliente_id)
-                REFERENCES clientes(id)
+            FOREIGN KEY(cliente_id)
+            REFERENCES clientes(id)
         );
         ";
 

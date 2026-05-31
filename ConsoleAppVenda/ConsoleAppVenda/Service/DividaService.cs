@@ -1,4 +1,4 @@
-﻿using Npgsql;
+﻿using Microsoft.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 using VendinhaPlena.Database;
 using VendinhaPlena.Enums;

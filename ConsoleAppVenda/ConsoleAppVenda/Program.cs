@@ -82,12 +82,19 @@ while (true)
 
     else if (opcao == 2)
     {
+        Console.Write("Página: ");
+        int pagina = int.Parse(Console.ReadLine());
+
         var clientes =
-            clienteService.ListarOrdenadoPorDivida();
+            clienteService.Listar(5, pagina);
 
         foreach (var cliente in clientes)
         {
             cliente.PrintDados();
+
+            Console.WriteLine(
+                $"Total devido: R$ {dividaService.TotalDividasCliente(cliente.Id):F2}"
+            );
 
             Console.WriteLine(
                 "----------------------"

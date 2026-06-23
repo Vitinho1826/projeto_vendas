@@ -20,6 +20,8 @@ public class Cliente
     [EmailAddress]
     public string Email { get; set; }
 
+
+
     public int Idade
     {
         get
@@ -39,6 +41,7 @@ public class Cliente
 
     public virtual void PrintDados()
     {
+        Console.WriteLine($"ID: {Id}");
         Console.WriteLine($"Nome: {NomeCompleto}");
         Console.WriteLine($"CPF: {CPF}");
         Console.WriteLine($"Nascimento: {DataNascimento:dd/MM/yyyy}");
